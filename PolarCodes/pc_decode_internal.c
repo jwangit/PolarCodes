@@ -10,11 +10,11 @@
 #include <string.h>
 #include "pc_decode_internal.h"
 
-void pc_decode_calc_f(double *new_val, double *val, u_int64_t step, u_int64_t n) {
+void pc_decode_calc_f(double *new_val, double *val, uint64_t step, uint64_t n) {
     
-    u_int64_t D = 1 << (n-step);
+    uint64_t D = 1 << (n-step);
     
-    u_int64_t i;
+    uint64_t i;
     for(i = 0; i < D; i++){
         double a = val[2*i];
         double b = val[2*i+1];
@@ -33,20 +33,20 @@ void pc_decode_calc_f(double *new_val, double *val, u_int64_t step, u_int64_t n)
     
 }
 
-void pc_decode_calc_us(Bit *usOut, u_int64_t stage, Bit *u, u_int64_t uindex){
+void pc_decode_calc_us(Bit *usOut, uint64_t stage, Bit *u, uint64_t uindex){
     
-    u_int64_t dim = 1 << stage;
-    u_int64_t dim2 = 1;
+    uint64_t dim = 1 << stage;
+    uint64_t dim2 = 1;
     
     memcpy(usOut, u + uindex - dim, dim);
     
-    u_int64_t s;
+    uint64_t s;
     
     Bit *temp2 = malloc(dim*sizeof(Bit));
     
     for(s = 1; s <= stage; s++){
         
-        u_int64_t i1, i2;
+        uint64_t i1, i2;
         for(i1 = 0; i1 < 1<<(stage-s); i1++){
             for(i2 = 0; i2 < 1<<(s-1); i2++){
                 
@@ -69,12 +69,12 @@ void pc_decode_calc_us(Bit *usOut, u_int64_t stage, Bit *u, u_int64_t uindex){
     
 }
 
-void pc_decode_calc_g(double *new_val, double *val, u_int64_t step, u_int64_t n, Bit *u, u_int64_t uindex) {
+void pc_decode_calc_g(double *new_val, double *val, uint64_t step, uint64_t n, Bit *u, uint64_t uindex) {
     
     
-    u_int64_t D = 1 << (n-step);
+    uint64_t D = 1 << (n-step);
     
-    u_int64_t i;
+    uint64_t i;
     
     Bit us[D];
     pc_decode_calc_us(us, n-step, u, uindex);

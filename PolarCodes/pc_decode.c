@@ -13,19 +13,19 @@
 #include "pc_decode_internal.h"
 
 
-void pc_decode_step(Bit *u_, Bit *A, u_int64_t n, u_int64_t step, double *val, u_int64_t *uindex);
+void pc_decode_step(Bit *u_, Bit *A, uint64_t n, uint64_t step, double *val, uint64_t *uindex);
 
 
-void pc_decode(Bit *u_, Bit *y, const Channel *channel, Bit *A, u_int64_t n) {
+void pc_decode(Bit *u_, Bit *y, const Channel *channel, Bit *A, uint64_t n) {
     
-    u_int64_t N = 1 << n;
-    u_int64_t uindex = 0;
+    uint64_t N = 1 << n;
+    uint64_t uindex = 0;
     
     double *delta = malloc(N*sizeof(double));
-    u_int64_t i;
+    uint64_t i;
     for(i = 0; i < N; i++){
         
-        u_int64_t i2 = bit_reverse_index(i, n);
+        uint64_t i2 = bit_reverse_index(i, n);
         double n,d,v;
         
         n = channel_probability(channel, y[i2], 0);
@@ -52,7 +52,7 @@ void pc_decode(Bit *u_, Bit *y, const Channel *channel, Bit *A, u_int64_t n) {
     
 }
 
-void pc_decode_update_u_(Bit *u_, Bit *A, double v, u_int64_t *uindex){
+void pc_decode_update_u_(Bit *u_, Bit *A, double v, uint64_t *uindex){
     
     if(A[*uindex] == 0){
         u_[*uindex] = 0;
@@ -65,9 +65,9 @@ void pc_decode_update_u_(Bit *u_, Bit *A, double v, u_int64_t *uindex){
     (*uindex)++;
 }
 
-void pc_decode_step(Bit *u_, Bit *A, u_int64_t n, u_int64_t step, double *val, u_int64_t *uindex){
+void pc_decode_step(Bit *u_, Bit *A, uint64_t n, uint64_t step, double *val, uint64_t *uindex){
     
-    u_int64_t D = 1 << (n-step);
+    uint64_t D = 1 << (n-step);
     double *new_val = malloc(sizeof(double)*D);
     
     //calcolate f

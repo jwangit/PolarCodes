@@ -8,21 +8,22 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
 #include "error_rate.h"
 #include "double_ei.h"
 
-void get_error_rate_file_name(char *filename, u_int64_t n, Channel *channel, u_int64_t K) {
+void get_error_rate_file_name(char *filename, uint64_t n, Channel *channel, uint64_t K) {
     sprintf(filename, "er_%" PRIu64 "_ch_%d_par_%f" "_k_%" PRIu64 ".txt", n, channel->channel_type, channel->par, K);
 }
 
-void get_error_rate_file_name_tmp(char *filename, u_int64_t n, Channel *channel, u_int64_t K) {
+void get_error_rate_file_name_tmp(char *filename, uint64_t n, Channel *channel, uint64_t K) {
     sprintf(filename, "er_%" PRIu64 "_ch_%d_par_%f" "_k_%" PRIu64 ".tmp.txt", n, channel->channel_type, channel->par, K);
 }
 
-FILE *open_error_rate_file_in(const char *dir, u_int64_t n, Channel *channel, u_int64_t K) {
+FILE *open_error_rate_file_in(const char *dir, uint64_t n, Channel *channel, uint64_t K) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -30,7 +31,7 @@ FILE *open_error_rate_file_in(const char *dir, u_int64_t n, Channel *channel, u_
     return fopen(filename, "r");
 }
 
-FILE *open_error_rate_file_out(const char *dir, u_int64_t n, Channel *channel, u_int64_t K) {
+FILE *open_error_rate_file_out(const char *dir, uint64_t n, Channel *channel, uint64_t K) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -38,7 +39,7 @@ FILE *open_error_rate_file_out(const char *dir, u_int64_t n, Channel *channel, u
     return fopen(filename, "w");
 }
 
-FILE *open_error_rate_file_out_temp(const char *dir, u_int64_t n, Channel *channel, u_int64_t K) {
+FILE *open_error_rate_file_out_temp(const char *dir, uint64_t n, Channel *channel, uint64_t K) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -47,7 +48,7 @@ FILE *open_error_rate_file_out_temp(const char *dir, u_int64_t n, Channel *chann
 }
 
 
-void get_or_create_error_rate(ErrorRate *er, const char *dir, u_int64_t n, Channel *channel, u_int64_t K) {
+void get_or_create_error_rate(ErrorRate *er, const char *dir, uint64_t n, Channel *channel, uint64_t K) {
     er->n = n;
     er->channel.channel_type = channel->channel_type;
     er->channel.par = channel->par;
@@ -72,7 +73,7 @@ void get_or_create_error_rate(ErrorRate *er, const char *dir, u_int64_t n, Chann
     }
 }
 
-void get_error_rate(ErrorRate *er, const char *dir, u_int64_t n, Channel *channel, u_int64_t K) {
+void get_error_rate(ErrorRate *er, const char *dir, uint64_t n, Channel *channel, uint64_t K) {
     er->n = n;
     er->channel.channel_type = channel->channel_type;
     er->channel.par = channel->par;

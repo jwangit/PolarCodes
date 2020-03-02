@@ -11,15 +11,15 @@
 #include <math.h>
 
 
-void apply_channel(Bit *yOut, Bit *x, const Channel *channel, u_int64_t n) {
+void apply_channel(Bit *yOut, Bit *x, const Channel *channel, uint64_t n) {
     
     switch (channel->channel_type) {
             
         case ChannelType_BSC:
         {
-            u_int64_t N = 1 << n;
+            uint64_t N = 1 << n;
             
-            u_int64_t i;
+            uint64_t i;
             for(i=0; i<N; i++){
                 
                 double r = (double)rand() / (double)RAND_MAX;
@@ -37,9 +37,9 @@ void apply_channel(Bit *yOut, Bit *x, const Channel *channel, u_int64_t n) {
         case ChannelType_BEC:
         {
             
-            u_int64_t N = 1 << n;
+            uint64_t N = 1 << n;
             
-            u_int64_t i;
+            uint64_t i;
             for(i=0; i<N; i++){
                 
                 double r = (double)rand() / (double)RAND_MAX;

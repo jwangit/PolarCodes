@@ -12,8 +12,8 @@
 #include "polar_codes.h"
 
 
-void pc_decode_calc_f(double *new_val, double *val, u_int64_t step, u_int64_t n);
-void pc_decode_calc_g(double *new_val, double *val, u_int64_t step, u_int64_t n, Bit *u, u_int64_t uindex);
+void pc_decode_calc_f(double *new_val, double *val, uint64_t step, uint64_t n);
+void pc_decode_calc_g(double *new_val, double *val, uint64_t step, uint64_t n, Bit *u, uint64_t uindex);
 
 
 

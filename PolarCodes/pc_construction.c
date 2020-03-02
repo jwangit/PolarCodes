@@ -23,18 +23,18 @@ int pc_sort_cmp(const void *x, const void *y)
 }
 */
 
-void pc_decode_construction_step(double *Z, double *Zvar, Bit *u, u_int64_t n, u_int64_t step, double *val, u_int64_t *uindex);
-void pc_decode_construction(double *Z, double *Zvar, Bit *y, const Channel *channel, Bit *u, u_int64_t n);
+void pc_decode_construction_step(double *Z, double *Zvar, Bit *u, uint64_t n, uint64_t step, double *val, uint64_t *uindex);
+void pc_decode_construction(double *Z, double *Zvar, Bit *y, const Channel *channel, Bit *u, uint64_t n);
 
 
-void pc_construction(double *Z, double *Zvar, u_int64_t n, const Channel *channel, u_int64_t n_samples) {
+void pc_construction(double *Z, double *Zvar, uint64_t n, const Channel *channel, uint64_t n_samples) {
     
-    u_int64_t N = 1 << n;
+    uint64_t N = 1 << n;
     
 //    memset(Z, 0, sizeof(double)*N);
 //    memset(Zvar, 0, sizeof(double)*N);
     
-    u_int64_t i;
+    uint64_t i;
     Bit *u = malloc(N*sizeof(Bit));
     Bit *x = malloc(N*sizeof(Bit));
     for(i = 0; i < n_samples; i++){
@@ -65,17 +65,17 @@ void pc_construction(double *Z, double *Zvar, u_int64_t n, const Channel *channe
 }
 
 
-void pc_decode_construction(double *Z, double *Zvar, Bit *y, const Channel *channel, Bit *u, u_int64_t n) {
+void pc_decode_construction(double *Z, double *Zvar, Bit *y, const Channel *channel, Bit *u, uint64_t n) {
     
-    u_int64_t N = 1 << n;
-    u_int64_t uindex = 0;
+    uint64_t N = 1 << n;
+    uint64_t uindex = 0;
     
     double *delta = malloc(N*sizeof(double));
 
-    u_int64_t i;
+    uint64_t i;
     for(i = 0; i < N; i++){
         
-        u_int64_t i2 = bit_reverse_index(i, n);
+        uint64_t i2 = bit_reverse_index(i, n);
         double n_,d_,v;
         
         n_ = channel_probability(channel, y[i2], 0);
@@ -103,7 +103,7 @@ void pc_decode_construction(double *Z, double *Zvar, Bit *y, const Channel *chan
 }
 
 
-void pc_decode_construction_update_Z(double *Z, double *Zvar, double v, u_int64_t *uindex){
+void pc_decode_construction_update_Z(double *Z, double *Zvar, double v, uint64_t *uindex){
     
     if(v > 1){
         v = 1/v;
@@ -119,9 +119,9 @@ void pc_decode_construction_update_Z(double *Z, double *Zvar, double v, u_int64_
 }
 
 
-void pc_decode_construction_step(double *Z, double *Zvar, Bit *u, u_int64_t n, u_int64_t step, double *val, u_int64_t *uindex){
+void pc_decode_construction_step(double *Z, double *Zvar, Bit *u, uint64_t n, uint64_t step, double *val, uint64_t *uindex){
     
-    u_int64_t D = 1 << (n-step);
+    uint64_t D = 1 << (n-step);
     double *new_val = malloc(D*sizeof(double));
     
     //calcolate f

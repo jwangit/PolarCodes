@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "cmath": "cpp",
+        "reedmuller.h": "c",
+        "stdint.h": "c"
+    }
+}

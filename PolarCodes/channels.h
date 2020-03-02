@@ -23,7 +23,7 @@ typedef struct {
 } Channel;
 
 
-void apply_channel(Bit *yOut, Bit *x, const Channel *channel, u_int64_t n);
+void apply_channel(Bit *yOut, Bit *x, const Channel *channel, uint64_t n);
 
 double channel_probability(const Channel *channel, Bit bOut, Bit bIn);
 

@@ -12,7 +12,7 @@
 #include "polar_codes.h"
 #include "channels.h"
 
-void pc_decode(Bit *u_, Bit *y, const Channel *channel, Bit *A, u_int64_t n);
+void pc_decode(Bit *u_, Bit *y, const Channel *channel, Bit *A, uint64_t n);
 
 
 #endif

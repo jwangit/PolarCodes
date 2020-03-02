@@ -10,15 +10,15 @@
 #include "polar_codes.h"
 
 
-void random_bits(Bit *bits, u_int64_t N) {
-    u_int64_t i;
+void random_bits(Bit *bits, uint64_t N) {
+    uint64_t i;
     for(i=0; i<N; i++){
         bits[i] = rand() & 1;
     }
 }
 
-void random_bits_f(Bit *bits, Bit *A, u_int64_t N) {
-    u_int64_t i;
+void random_bits_f(Bit *bits, Bit *A, uint64_t N) {
+    uint64_t i;
     for(i=0; i<N; i++){
         if(A[i] == 0)
             bits[i] = 0;
@@ -27,9 +27,9 @@ void random_bits_f(Bit *bits, Bit *A, u_int64_t N) {
     }
 }
 
-void print_bits(Bit *bits, u_int64_t N) {
+void print_bits(Bit *bits, uint64_t N) {
     
-    u_int64_t i;
+    uint64_t i;
     for(i=0; i<N; printf(" "), i++){
         if(bits[i] == 0)
             printf("0");
@@ -42,8 +42,8 @@ void print_bits(Bit *bits, u_int64_t N) {
     
 }
 
-void print_doubles(double *doubles, u_int64_t N) {
-    u_int64_t i;
+void print_doubles(double *doubles, uint64_t N) {
+    uint64_t i;
     for(i=0; i<N; printf(" "), i++){
         printf("%f", doubles[i]);
     }
@@ -52,9 +52,9 @@ void print_doubles(double *doubles, u_int64_t N) {
 }
 
 
-u_int64_t bit_reverse_index(u_int64_t index, u_int64_t n) {
-    u_int64_t index2 = 0;
-    u_int64_t i;
+uint64_t bit_reverse_index(uint64_t index, uint64_t n) {
+    uint64_t index2 = 0;
+    uint64_t i;
     for(i=0; i < n; i++){
         index2 |= ((index >> i) & 1) << (n-i-1);
     }

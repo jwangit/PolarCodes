@@ -13,7 +13,7 @@
 #include "channels.h"
 
 
-void pc_construction(double *Z, double *Zvar, u_int64_t n, const Channel *channel, u_int64_t n_samples);
+void pc_construction(double *Z, double *Zvar, uint64_t n, const Channel *channel, uint64_t n_samples);
 
 
 #endif

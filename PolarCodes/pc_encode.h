@@ -12,7 +12,7 @@
 #include "polar_codes.h"
 
 
-void pc_encode(Bit* xOut, Bit* u, u_int64_t n);
+void pc_encode(Bit* xOut, Bit* u, uint64_t n);
 
 
 #endif

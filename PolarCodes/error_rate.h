@@ -10,25 +10,26 @@
 #define PolarCodes_error_rate_h
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
+#include <stdint.h>
 #include "channels.h"
 
 typedef struct {
-    u_int64_t n;
+    uint64_t n;
     Channel channel;
-    u_int64_t K;
-    u_int64_t total_samples;
+    uint64_t K;
+    uint64_t total_samples;
     
     double BER;
     double BER_2;
 
-    u_int64_t frame_errors;
+    uint64_t frame_errors;
     
 } ErrorRate;
 
 
-void get_error_rate(ErrorRate *er, const char *dir, u_int64_t n, Channel *channel, u_int64_t K);
-void get_or_create_error_rate(ErrorRate *er, const char *dir, u_int64_t n, Channel *channel, u_int64_t K);
+void get_error_rate(ErrorRate *er, const char *dir, uint64_t n, Channel *channel, uint64_t K);
+void get_or_create_error_rate(ErrorRate *er, const char *dir, uint64_t n, Channel *channel, uint64_t K);
 void save_error_rate(ErrorRate *er, const char *dir);
 
 

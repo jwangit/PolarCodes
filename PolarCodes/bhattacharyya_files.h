@@ -10,21 +10,22 @@
 #define PolarCodes_bhattacharyya_files_h
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
+#include <stdint.h>
 #include "channels.h"
 
 typedef struct {
-    u_int64_t n;
+    uint64_t n;
     Channel channel;
-    u_int64_t total_samples;
+    uint64_t total_samples;
     double *Z;
     double *Zvar;
 } Bhattacharyya;
 
-void get_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *channel);
-void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *channel);
+void get_bhattacharyya(Bhattacharyya *b, const char *dir, uint64_t n, Channel *channel);
+void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, uint64_t n, Channel *channel);
 void save_bhattacharyya(Bhattacharyya *b, const char *dir);
 
-void get_frozen_bits(Bit *bits, u_int64_t K, Bhattacharyya *b);
+void get_frozen_bits(Bit *bits, uint64_t K, Bhattacharyya *b);
 
 #endif

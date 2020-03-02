@@ -7,22 +7,23 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
 #include "channels.h"
 #include "bhattacharyya_files.h"
 #include "double_ei.h"
 
-void get_bhattacharyya_file_name(char *filename, u_int64_t n, Channel *channel) {
+void get_bhattacharyya_file_name(char *filename, uint64_t n, Channel *channel) {
     sprintf(filename, "bh_%" PRIu64 "_ch_%d_par_%f" ".txt", n, channel->channel_type, channel->par);
 }
 
-void get_bhattacharyya_file_name_tmp(char *filename, u_int64_t n, Channel *channel) {
+void get_bhattacharyya_file_name_tmp(char *filename, uint64_t n, Channel *channel) {
     sprintf(filename, "bh_%" PRIu64 "_ch_%d_par_%f" ".tmp.txt", n, channel->channel_type, channel->par);
 }
 
-FILE *open_bhattacharyya_file_in(const char *dir, u_int64_t n, Channel *channel) {
+FILE *open_bhattacharyya_file_in(const char *dir, uint64_t n, Channel *channel) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -30,7 +31,7 @@ FILE *open_bhattacharyya_file_in(const char *dir, u_int64_t n, Channel *channel)
     return fopen(filename, "r");
 }
 
-FILE *open_bhattacharyya_file_out(const char *dir, u_int64_t n, Channel *channel) {
+FILE *open_bhattacharyya_file_out(const char *dir, uint64_t n, Channel *channel) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -38,7 +39,7 @@ FILE *open_bhattacharyya_file_out(const char *dir, u_int64_t n, Channel *channel
     return fopen(filename, "w");
 }
 
-FILE *open_bhattacharyya_file_out_temp(const char *dir, u_int64_t n, Channel *channel) {
+FILE *open_bhattacharyya_file_out_temp(const char *dir, uint64_t n, Channel *channel) {
     char filename[1024];
     strcpy(filename, dir);
     char *name = filename + strlen(filename);
@@ -46,8 +47,8 @@ FILE *open_bhattacharyya_file_out_temp(const char *dir, u_int64_t n, Channel *ch
     return fopen(filename, "w");
 }
 
-void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *channel) {
-    u_int64_t N = 1<<n;
+void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, uint64_t n, Channel *channel) {
+    uint64_t N = 1<<n;
     
     b->n = n;
     b->channel.channel_type = channel->channel_type;
@@ -56,7 +57,7 @@ void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n,
     b->Zvar = malloc(sizeof(double)*N);
     b->total_samples = 0;
     
-    u_int64_t i;
+    uint64_t i;
     FILE *in = open_bhattacharyya_file_in(dir, n, channel);
     if(in){
         if(1 != fscanf(in, "%" PRIu64, &(b->total_samples)))
@@ -74,8 +75,8 @@ void get_or_create_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n,
 
 }
 
-void get_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *channel) {
-    u_int64_t N = 1<<n;
+void get_bhattacharyya(Bhattacharyya *b, const char *dir, uint64_t n, Channel *channel) {
+    uint64_t N = 1<<n;
 
     b->n = n;
     b->channel.channel_type = channel->channel_type;
@@ -84,7 +85,7 @@ void get_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *
     b->Zvar = malloc(sizeof(double)*N);
     b->total_samples = 0;
     
-    u_int64_t i;
+    uint64_t i;
     FILE *in = open_bhattacharyya_file_in(dir, n, channel);
     if(in){
         if(1 != fscanf(in, "%" PRIu64, &(b->total_samples)))
@@ -102,8 +103,8 @@ void get_bhattacharyya(Bhattacharyya *b, const char *dir, u_int64_t n, Channel *
 }
 
 void save_bhattacharyya(Bhattacharyya *b, const char *dir) {
-    u_int64_t N = 1 << b->n;
-    u_int64_t i;
+    uint64_t N = 1 << b->n;
+    uint64_t i;
     FILE *out = open_bhattacharyya_file_out_temp(dir, b->n, &(b->channel));
     if(!out)
         exit(1);
@@ -132,7 +133,7 @@ void save_bhattacharyya(Bhattacharyya *b, const char *dir) {
 }
 
 struct frozen_bits_index_struct {
-    u_int64_t index;
+    uint64_t index;
     Bhattacharyya *b;
 };
 
@@ -146,10 +147,10 @@ int frozen_bits_sort_cmp(const void *x, const void *y)
     return 0;
 }
 
-void get_frozen_bits(Bit *bits, u_int64_t K, Bhattacharyya *b) {
-    u_int64_t N = 1 << b->n;
+void get_frozen_bits(Bit *bits, uint64_t K, Bhattacharyya *b) {
+    uint64_t N = 1 << b->n;
     struct frozen_bits_index_struct *indexes = (struct frozen_bits_index_struct*)malloc(sizeof(struct frozen_bits_index_struct)*N);
-    u_int64_t i;
+    uint64_t i;
     for(i=0;i<N;i++){
         indexes[i].index = i;
         indexes[i].b = b;
@@ -159,7 +160,7 @@ void get_frozen_bits(Bit *bits, u_int64_t K, Bhattacharyya *b) {
         
     memset(bits, 0, N);
     for(i=0;i<K;i++){
-        u_int64_t index = indexes[i].index;
+        uint64_t index = indexes[i].index;
         bits[index] = 1;
     }
     
